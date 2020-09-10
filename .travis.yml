@@ -7,8 +7,6 @@ before_install:
 
 script:
   - docker run esgras/multi-docker npm test -- --coverage
-
-after_success:
   - docker build -t esgras/multi-client ./client
   - docker build -t esgras/multi-nginx ./nginx
   - docker build -t esgras/multi-server ./server
