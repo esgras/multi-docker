@@ -1,11 +1,5 @@
 version: '3'
 services:
-#  postgres:
-#    image: 'postgres:latest'
-#    restart: always
-#    environment:
-#      POSTGRES_PASSWORD: postgres_password
-
   redis:
     container_name: ${COMPOSER_PROJECT_NAME}_redis
     image: 'redis:latest'
@@ -19,8 +13,10 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mydb
+      MYSQL_ROOT_PASSWORD: test1234
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: test1234
+      MYSQL_DATABASE: bernard
 #    volumes:
 #      - ./var/mysql-data:/var/lib/mysql
     ports:
@@ -50,19 +46,13 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-#      - PGUSER=postgres
-#      - PGHOST=postgres
-#      - PGDATABASE=postgres
-#      - PGPASSWORD=postgres_password
-#      - PGPORT=5432
-      - mysqlUSER=root
-      - mysqlHOST=mysql
-      - mysqlDATABASE=mydb
-      - mysqlPASSWORD=password
-      - mysqlPORT=3306
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=test1234
+      - MYSQL_DATABASE=bernard
+      - MYSQL_PORT=3306
     depends_on:
       - redis
-#      - postgres
       - mysql
 
   client:

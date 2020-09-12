@@ -5,6 +5,8 @@ start:
 	@docker-compose -f docker-compose.yml $(project) up -d
 stop:
 	@docker-compose -f docker-compose.yml $(project) down
+restart: stop start
+
 logs-nginx:
 	@docker logs -f ${COMPOSER_PROJECT_NAME}_nginx
 logs-client:
@@ -13,6 +15,8 @@ logs-api:
 	@docker logs -f ${COMPOSER_PROJECT_NAME}_api
 logs-worker:
 	@docker logs -f ${COMPOSER_PROJECT_NAME}_worker
+logs-mysql:
+	@docker logs -f ${COMPOSER_PROJECT_NAME}_mysql
 
 ssh:
 	@docker exec -it ${COMPOSER_PROJECT_NAME}_api /bin/sh

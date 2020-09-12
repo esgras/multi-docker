@@ -8,13 +8,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// const mysqlClient = require('./db');
+const mysqlPromise = require('./db');
+// mysqlClient.query('CREATE TABLE IF NOT EXISTS vals (number INT)');
 
-const mysqlClient = require('./db');
-mysqlClient.getConnection(function(err, conn) {
-    conn.query('CREATE TABLE IF NOT EXISTS vals (number INT)', (err, res, fields) => {});
-    mysqlClient.releaseConnection(conn);
-})
-const mysqlPromise = mysqlClient.promise();
+
+// const mysqlPromise = mysqlClient.promise();
 
 const redis = require('redis');
 const redisClient = redis.createClient({
@@ -25,8 +24,12 @@ const redisClient = redis.createClient({
 const redisPublisher = redisClient.duplicate();
 
 app.get('/values/all', async (req, res) => {
-    const [values, fields] = await mysqlPromise.query('SELECT * FROM vals');
-    res.send(values);
+    await mysqlPromise.execute("SELECT NOW()");
+    // await mysqlPromise.query('CREATE TABLE IF NOT EXISTS vals (number INT)');
+    // const [values, fields] = await mysqlPromise.query('SELECT * FROM vals');
+    // res.send(values);
+
+    res.send([]);
 });
 
 app.get('/values/current', async (req, res) => {
@@ -43,7 +46,7 @@ app.post('/values', async (req, res) => {
     }
     redisClient.hset('values', index, 'Nothing yet!');
     redisPublisher.publish('insert', index);
-    await mysqlPromise.query('INSERT INTO vals(number) VALUES(?)', [index]);
+    // await mysqlPromise.query('INSERT INTO vals(number) VALUES(?)', [index]);
     res.send({working: true});
 });
 

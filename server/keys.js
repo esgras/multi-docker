@@ -1,9 +1,9 @@
 module.exports = {
     redisHost: process.env.REDIS_HOST,
     redisPort: process.env.REDIS_PORT,
-    mysqlUSER: process.env.mysqlUSER,
-    mysqlHOST: process.env.mysqlHOST,
-    mysqlDATABASE: process.env.mysqlDATABASE,
-    mysqlPASSWORD: process.env.mysqlPASSWORD,
-    mysqlPORT: process.env.mysqlPORT
+    mysqlUSER: process.env.MYSQL_USER,
+    mysqlHOST: process.env.MYSQL_HOST,
+    mysqlDATABASE: process.env.MYSQL_DATABASE,
+    mysqlPASSWORD: process.env.MYSQL_PASSWORD,
+    mysqlPORT: process.env.MYSQL_PORT
 };
