@@ -1,6 +1,6 @@
 {
   "AWSEBDockerrunVersion": 2,
-  "containerDefinintions": [
+  "containerDefinitions": [
     {
       "name": "client",
       "image": "esgras/multi-client",
